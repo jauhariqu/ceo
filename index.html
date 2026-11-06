@@ -9,25 +9,15 @@
     <link rel="icon" href="assets/pixel.png" type="image/x-icon" />
     <link href="./src/output.css" rel="stylesheet" />
     <style>
-      @keyframes wave {
-        0% {
-          border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        }
-        20% {
-          border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-        }
-        40% {
-          border-radius: 70% 30% 40% 60% / 40% 50% 60% 50%;
-        }
-        60% {
-          border-radius: 40% 70% 60% 30% / 70% 40% 50% 60%;
-        }
-        80% {
-          border-radius: 60% 40% 50% 70% / 30% 70% 40% 50%;
-        }
-        100% {
-          border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        }
+      /* ===== Retro CRT / arcade theme ===== */
+      :root {
+        --accent: #00f0ff;
+        --accent-dim: rgba(0, 240, 255, 0.45);
+        --accent-soft: rgba(0, 240, 255, 0.09);
+        --panel: #0b0f19;
+        --panel-2: #111828;
+        --line: #1d2941;
+        --muted: #9aa3b2;
       }
 
       @keyframes fade {
@@ -39,7 +29,6 @@
           opacity: 0;
         }
       }
-
       @keyframes fade-reverse {
         0%,
         100% {
@@ -49,72 +38,13 @@
           opacity: 1;
         }
       }
-
       .animate-fade {
-        animation: fade 4s infinite;
+        animation: fade 6s infinite;
       }
-
       .animate-fade-reverse {
-        animation: fade-reverse 4s infinite;
+        animation: fade-reverse 6s infinite;
       }
 
-      @keyframes gradient {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-
-      .animate-gradient {
-        background-size: 200% 200%;
-        animation: gradient 3s ease infinite;
-      }
-
-      .animate-wave {
-        animation: wave 6s ease-in-out infinite;
-      }
-
-      .nav-active {
-        color: #00f0ff !important;
-        background: rgba(0, 240, 255, 0.1);
-        border-radius: 8px;
-        transform: scale(1.05);
-        text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
-      }
-
-      /* Custom animations that Tailwind doesn't have by default */
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-
-      @keyframes shimmer {
-        0% {
-          transform: translateX(-100%);
-        }
-        100% {
-          transform: translateX(100%);
-        }
-      }
-
-      .animate-float {
-        animation: float 3s ease-in-out infinite;
-      }
-      .animate-shimmer {
-        animation: shimmer 2s infinite;
-      }
-
-      /* ===== Cyberpunk neon theme ===== */
       body {
         font-family: "Share Tech Mono", ui-monospace, "Courier New", monospace;
         background: #07070f;
@@ -122,17 +52,17 @@
         overflow-x: hidden;
       }
 
-      /* Neon grid floor + scanlines overlay */
+      /* CRT grid + scanlines */
       body::before {
         content: "";
         position: fixed;
         inset: 0;
         z-index: -2;
         background-image: linear-gradient(
-            rgba(0, 240, 255, 0.07) 1px,
+            rgba(0, 240, 255, 0.05) 1px,
             transparent 1px
           ),
-          linear-gradient(90deg, rgba(255, 43, 214, 0.07) 1px, transparent 1px);
+          linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
         background-size: 40px 40px;
         pointer-events: none;
       }
@@ -145,7 +75,7 @@
           to bottom,
           rgba(0, 0, 0, 0) 0px,
           rgba(0, 0, 0, 0) 2px,
-          rgba(0, 0, 0, 0.18) 3px,
+          rgba(0, 0, 0, 0.15) 3px,
           rgba(0, 0, 0, 0) 4px
         );
         pointer-events: none;
@@ -160,84 +90,129 @@
         word-break: break-word;
         hyphens: auto;
       }
-      /* Card titles (project/contact) sit tighter — ease the wide Orbitron tracking */
+      /* Card titles (project/contact) sit tighter */
       h3.text-xl {
         letter-spacing: 0.01em;
       }
-      .text-3xl {
-        text-shadow: 0 0 10px rgba(0, 240, 255, 0.55),
-          0 0 22px rgba(255, 43, 214, 0.35);
-      }
 
-      .aurora {
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      .aurora span {
-        position: absolute;
-        display: block;
-        border-radius: 9999px;
-        filter: blur(110px);
-        opacity: 0.5;
-        animation: drift 20s ease-in-out infinite;
-      }
-      .aurora .b1 {
-        width: 420px;
-        height: 420px;
-        background: #00f0ff;
-        top: -90px;
-        left: -70px;
-      }
-      .aurora .b2 {
-        width: 360px;
-        height: 360px;
-        background: #ff2bd6;
-        top: 28%;
-        right: -90px;
-        animation-delay: -7s;
-      }
-      .aurora .b3 {
-        width: 340px;
-        height: 340px;
-        background: #7c3aed;
-        bottom: -80px;
-        left: 18%;
-        animation-delay: -13s;
-      }
-      @keyframes drift {
-        0%,
-        100% {
-          transform: translate(0, 0) scale(1);
-        }
-        50% {
-          transform: translate(24px, -34px) scale(1.12);
-        }
-      }
-
+      /* Flat panel card: solid bg, 2px border, hard offset shadow */
       .glass {
-        background: rgba(10, 14, 26, 0.55) !important;
-        backdrop-filter: blur(14px) saturate(140%);
-        -webkit-backdrop-filter: blur(14px) saturate(140%);
-        border: 1px solid rgba(0, 240, 255, 0.25) !important;
-        box-shadow: 0 0 18px rgba(0, 240, 255, 0.08),
-          inset 0 0 18px rgba(255, 43, 214, 0.05);
+        background: var(--panel) !important;
+        border: 2px solid var(--line) !important;
+        box-shadow: 5px 5px 0 rgba(0, 240, 255, 0.08);
+        transition: border-color 0.2s ease, background 0.2s ease;
       }
       .glass:hover {
-        background: rgba(14, 20, 38, 0.7) !important;
-        border-color: rgba(255, 43, 214, 0.55) !important;
-        box-shadow: 0 0 26px rgba(255, 43, 214, 0.22),
-          inset 0 0 22px rgba(0, 240, 255, 0.08);
+        background: var(--panel-2) !important;
+        border-color: var(--accent-dim) !important;
       }
 
-      /* Language dropdown: solid, not transparent */
+      /* Retro button: solid accent fill, press-down hover */
+      .btn-arcade {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: var(--accent);
+        color: #000;
+        border: 2px solid #07070f;
+        box-shadow: 4px 4px 0 rgba(0, 240, 255, 0.28);
+        font-family: "Orbitron", "Share Tech Mono", monospace;
+        font-size: 0.875rem;
+        letter-spacing: 0.03em;
+        transition: transform 0.12s ease, box-shadow 0.12s ease,
+          background 0.12s ease;
+        cursor: pointer;
+      }
+      .btn-arcade:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 rgba(0, 240, 255, 0.28);
+        background: #3df3ff;
+      }
+      .btn-arcade:active {
+        transform: translate(4px, 4px);
+        box-shadow: none;
+      }
+
+      /* Icon chip inside cards */
+      .chip {
+        background: var(--panel-2);
+        border: 2px solid var(--line);
+        transition: border-color 0.2s ease;
+      }
+      .chip i {
+        color: var(--accent) !important;
+      }
+      .group:hover .chip {
+        border-color: var(--accent-dim);
+      }
+
+      /* Skill tile */
+      .skill {
+        background: var(--panel);
+        border: 2px solid var(--line);
+        padding: 0.75rem;
+        text-align: center;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+      .skill:hover {
+        background: var(--panel-2);
+        border-color: var(--accent-dim);
+      }
+      .skill i {
+        color: var(--accent);
+      }
+      .skill-name {
+        color: #e7ecf5;
+      }
+
+      /* Social square */
+      .soc i {
+        color: var(--muted);
+        transition: color 0.2s ease;
+      }
+      .soc:hover i {
+        color: var(--accent);
+      }
+
+      /* Avatar frame */
+      .avatar-frame {
+        background: var(--panel);
+        border: 2px solid var(--accent);
+        box-shadow: 6px 6px 0 rgba(0, 240, 255, 0.18);
+      }
+      .avatar-frame img[src*="pixel"] {
+        image-rendering: pixelated;
+      }
+
+      /* Verified badge */
+      .badge {
+        color: var(--accent);
+      }
+
+      /* Bottom nav */
+      .navbtn {
+        transition: color 0.2s ease;
+      }
+      .navbtn:hover {
+        color: var(--accent);
+      }
+      .nav-active {
+        color: var(--accent) !important;
+        background: var(--accent-soft);
+      }
+
+      /* Language dropdown: solid panel */
       #language-dropdown {
-        background: #0a0e1a !important;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        border: 1px solid rgba(0, 240, 255, 0.45) !important;
+        background: var(--panel) !important;
+        border: 2px solid var(--line) !important;
+      }
+      .lang-opt {
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+      .lang-opt:hover {
+        background: var(--accent-soft);
+        color: var(--accent);
       }
 
       /* Synced lyric subtitle (satu baris) */
@@ -253,20 +228,29 @@
         font-family: "Orbitron", sans-serif;
         font-size: 1rem;
         line-height: 1.4;
-        color: #fff;
+        color: var(--accent);
         opacity: 0;
         transform: translateY(8px);
         transition: opacity 0.45s ease, transform 0.45s ease;
-        text-shadow: 0 0 10px rgba(0, 240, 255, 0.85),
-          0 0 22px rgba(255, 43, 214, 0.6),
-          0 0 38px rgba(124, 58, 237, 0.45);
       }
       .lyric-line.show {
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* Neon scrollbar */
+      /* Player progress thumb */
+      #progressBar::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        background: var(--accent);
+        border: 2px solid #07070f;
+        border-radius: 0;
+        cursor: pointer;
+      }
+
+      /* Scrollbar */
       ::-webkit-scrollbar {
         width: 10px;
       }
@@ -274,11 +258,10 @@
         background: transparent;
       }
       ::-webkit-scrollbar-thumb {
-        background: rgba(0, 240, 255, 0.4);
-        border-radius: 9999px;
+        background: var(--line);
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 43, 214, 0.6);
+        background: var(--accent-dim);
       }
     </style>
     <script
@@ -300,12 +283,6 @@
   <body
     class="text-white pb-20 min-h-screen"
   >
-    <!-- Aurora background -->
-    <div class="aurora" aria-hidden="true">
-      <span class="b1"></span>
-      <span class="b2"></span>
-      <span class="b3"></span>
-    </div>
 
     <!-- Loading Screen -->
     <div
@@ -322,7 +299,7 @@
 
     <div class="container mx-auto lg:w-1/2 md:w-3/4">
       <!-- Cover Image Section -->
-      <div class="relative h-64 overflow-hidden rounded-b-3xl">
+      <div class="relative h-64 overflow-hidden">
         <img
           src="assets/cover.webp"
           alt="Cover Background"
@@ -333,9 +310,9 @@
       <!-- Profile Section -->
       <div class="relative -mt-18 flex justify-center">
         <div
-          class="relative flex justify-center items-center w-36 h-36 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient animate-wave"
+          class="avatar-frame relative flex justify-center items-center w-36 h-36"
         >
-          <div class="relative w-32 h-32 rounded-full overflow-hidden">
+          <div class="relative w-32 h-32 overflow-hidden">
             <img
               src="assets/me.jpeg"
               alt="Jauhariel's Profile Picture"
@@ -357,7 +334,7 @@
           >
             Jauhari Afif Ramadana
             <div class="relative inline-flex items-center justify-center">
-              <i class="fas fa-circle text-blue-500 text-xl"></i>
+              <i class="fas fa-circle text-xl badge"></i>
               <i class="fas fa-check text-white text-xs absolute"></i>
             </div>
           </div>
@@ -372,13 +349,13 @@
           <!-- CTA Buttons -->
           <div class="flex flex-wrap justify-center gap-4 mt-8">
             <button
-              class="cta-about group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-purple-700 hover:to-indigo-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-purple-500/25"
+              class="btn-arcade px-6 py-3 cta-about"
             >
               <i class="fas fa-user"></i>
               <span class="cta-about-text">About Me</span>
             </button>
             <button
-              class="cta-projects group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 to-rose-600 text-white px-6 py-3 rounded-xl hover:from-pink-700 hover:to-rose-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-pink-500/25"
+              class="btn-arcade px-6 py-3 cta-projects"
             >
               <i class="fas fa-code"></i>
               <span class="cta-projects-text">My Projects</span>
@@ -390,33 +367,33 @@
             <a
               href="https://github.com/Jauhariel"
               target="_blank"
-              class="group w-12 h-12 glass rounded-xl flex items-center justify-center border border-gray-700 hover:border-gray-500 hover:scale-110 transition-all duration-300"
+              class="soc glass w-12 h-12 flex items-center justify-center"
               aria-label="GitHub"
             >
-              <i class="fab fa-github text-xl text-gray-300 group-hover:text-white"></i>
+              <i class="fab fa-github text-xl"></i>
             </a>
             <a
               href="https://wa.me/jauhariel"
               target="_blank"
-              class="group w-12 h-12 glass rounded-xl flex items-center justify-center border border-green-700 hover:border-green-500 hover:scale-110 transition-all duration-300"
+              class="soc glass w-12 h-12 flex items-center justify-center"
               aria-label="WhatsApp"
             >
-              <i class="fab fa-whatsapp text-xl text-green-300 group-hover:text-green-200"></i>
+              <i class="fab fa-whatsapp text-xl"></i>
             </a>
             <a
               href="https://instagram.com/jauhariel.id"
               target="_blank"
-              class="group w-12 h-12 glass rounded-xl flex items-center justify-center border border-pink-700 hover:border-pink-500 hover:scale-110 transition-all duration-300"
+              class="soc glass w-12 h-12 flex items-center justify-center"
               aria-label="Instagram"
             >
-              <i class="fab fa-instagram text-xl text-pink-300 group-hover:text-pink-200"></i>
+              <i class="fab fa-instagram text-xl"></i>
             </a>
             <a
               href="mailto:jauhariel@sang.ceo"
-              class="group w-12 h-12 glass rounded-xl flex items-center justify-center border border-red-700 hover:border-red-500 hover:scale-110 transition-all duration-300"
+              class="soc glass w-12 h-12 flex items-center justify-center"
               aria-label="Email"
             >
-              <i class="fas fa-envelope text-xl text-red-300 group-hover:text-red-200"></i>
+              <i class="fas fa-envelope text-xl"></i>
             </a>
           </div>
         </div>
@@ -467,116 +444,37 @@
             <!-- Skills Section with Enhanced Design -->
             <div class="mt-6">
               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                <!-- HTML -->
-                <div
-                  class="group relative bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-xl p-3 hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-                >
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                  <div class="relative z-10 text-center">
-                    <i class="fab fa-html5 text-2xl mb-2 text-orange-300"></i>
-                    <div class="text-sm font-bold text-orange-300">HTML</div>
-                  </div>
+                <div class="skill">
+                  <i class="fab fa-html5 text-2xl mb-2"></i>
+                  <div class="skill-name text-sm font-bold">HTML</div>
                 </div>
-
-                <!-- CSS -->
-                <div
-                  class="group relative bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-xl p-3 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-                >
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                  <div class="relative z-10 text-center">
-                    <i class="fab fa-css3-alt text-2xl mb-2 text-blue-300"></i>
-                    <div class="text-sm font-bold text-blue-300">CSS</div>
-                  </div>
+                <div class="skill">
+                  <i class="fab fa-css3-alt text-2xl mb-2"></i>
+                  <div class="skill-name text-sm font-bold">CSS</div>
                 </div>
-
-                <!-- JavaScript -->
-                <div
-                  class="group relative bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-xl p-3 hover:shadow-lg hover:shadow-yellow-500/25 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-                >
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                  <div class="relative z-10 text-center">
-                    <i
-                      class="fab fa-js-square text-2xl mb-2 text-yellow-300"
-                    ></i>
-                    <div class="text-sm font-bold text-yellow-300">
-                      JavaScript
-                    </div>
-                  </div>
+                <div class="skill">
+                  <i class="fab fa-js-square text-2xl mb-2"></i>
+                  <div class="skill-name text-sm font-bold">JavaScript</div>
                 </div>
-
-                <!-- PHP -->
-                <div
-                  class="group relative bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 rounded-xl p-3 hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-                >
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                  <div class="relative z-10 text-center">
-                    <i class="fab fa-php text-2xl mb-2 text-indigo-300"></i>
-                    <div class="text-sm font-bold text-indigo-300">PHP</div>
-                  </div>
+                <div class="skill">
+                  <i class="fab fa-php text-2xl mb-2"></i>
+                  <div class="skill-name text-sm font-bold">PHP</div>
                 </div>
-
-                <!-- MySQL -->
-                <div
-                  class="group relative bg-gradient-to-br from-green-600/20 to-teal-600/20 border border-green-600/30 rounded-xl p-3 hover:shadow-lg hover:shadow-green-600/25 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-                >
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-green-600/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                  <div class="relative z-10 text-center">
-                    <i class="fas fa-database text-2xl mb-2 text-green-300"></i>
-                    <div class="text-sm font-bold text-green-300">MySQL</div>
-                  </div>
+                <div class="skill">
+                  <i class="fas fa-database text-2xl mb-2"></i>
+                  <div class="skill-name text-sm font-bold">MySQL</div>
                 </div>
-
-                <!-- Tailwind CSS -->
-                <div
-                  class="group relative bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-xl p-3 hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-                >
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                  <div class="relative z-10 text-center">
-                    <i class="fas fa-wind text-2xl mb-2 text-cyan-300"></i>
-                    <div class="text-sm font-bold text-cyan-300">Tailwind</div>
-                  </div>
+                <div class="skill">
+                  <i class="fas fa-wind text-2xl mb-2"></i>
+                  <div class="skill-name text-sm font-bold">Tailwind</div>
                 </div>
-
-                <!-- Bootstrap -->
-                <div
-                  class="group relative bg-gradient-to-br from-purple-600/20 to-indigo-600/20 border border-purple-600/30 rounded-xl p-3 hover:shadow-lg hover:shadow-purple-600/25 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-                >
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-indigo-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                  <div class="relative z-10 text-center">
-                    <i
-                      class="fab fa-bootstrap text-2xl mb-2 text-purple-300"
-                    ></i>
-                    <div class="text-sm font-bold text-purple-300">
-                      Bootstrap
-                    </div>
-                  </div>
+                <div class="skill">
+                  <i class="fab fa-bootstrap text-2xl mb-2"></i>
+                  <div class="skill-name text-sm font-bold">Bootstrap</div>
                 </div>
-
-                <!-- Laravel -->
-                <div
-                  class="group relative bg-gradient-to-br from-red-600/20 to-orange-600/20 border border-red-600/30 rounded-xl p-3 hover:shadow-lg hover:shadow-red-600/25 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 overflow-hidden"
-                >
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-red-600/10 to-orange-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                  <div class="relative z-10 text-center">
-                    <i class="fab fa-laravel text-2xl mb-2 text-red-300"></i>
-                    <div class="text-sm font-bold text-red-300">Laravel</div>
-                  </div>
+                <div class="skill">
+                  <i class="fab fa-laravel text-2xl mb-2"></i>
+                  <div class="skill-name text-sm font-bold">Laravel</div>
                 </div>
               </div>
             </div>
@@ -586,7 +484,7 @@
             <div class="text-2xl font-bold text-center mb-6">Certificates</div>
             <div class="flex justify-center">
               <div
-                class="bg-gray-800 rounded-lg p-6 flex items-center gap-4 shadow-purple-700 shadow-lg border-l-5 border-pink-700"
+                class="bg-gray-800 p-6 flex items-center gap-4 shadow-purple-700 border-l-5 border-pink-700"
               >
                 <i class="fas fa-certificate text-4xl text-purple-400"></i>
                 <div>
@@ -612,22 +510,14 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <!-- Coursera Certificate -->
               <div
-                class="group relative glass rounded-xl p-6 flex items-center gap-4 shadow-lg hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-purple-500 overflow-hidden"
+                class="group relative glass p-6 flex items-center gap-4 overflow-hidden"
               >
-                <!-- Shimmer effect overlay -->
-                <div
-                  class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                ></div>
 
-                <!-- Background glow effect -->
-                <div
-                  class="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                ></div>
 
                 <!-- Icon with floating animation -->
                 <div class="relative z-10">
                   <div
-                    class="animate-float group-hover:animate-none group-hover:scale-110 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center transition-transform duration-300 shadow-lg"
+                    class="w-16 h-16 chip flex items-center justify-center"
                   >
                     <i class="fas fa-certificate text-2xl text-white"></i>
                   </div>
@@ -635,7 +525,7 @@
 
                 <div class="relative z-10 flex-1">
                   <div
-                    class="font-bold text-xl text-white group-hover:text-purple-300 transition-colors duration-300"
+                    class="font-bold text-xl text-white"
                   >
                     Coursera
                   </div>
@@ -645,7 +535,7 @@
                   <a
                     href="https://coursera.org/share/a6398499cdfb00ba4a37bd7bead960ad"
                     target="_blank"
-                    class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-purple-700 hover:to-pink-700 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 link-sertifikat"
+                    class="btn-arcade inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold link-sertifikat"
                   >
                     View Certificate
                   </a>
@@ -654,22 +544,14 @@
 
               <!-- Cisco Netacad Certificate -->
               <div
-                class="group relative glass rounded-xl p-6 flex items-center gap-4 shadow-lg hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-blue-500 overflow-hidden"
+                class="group relative glass p-6 flex items-center gap-4 overflow-hidden"
               >
-                <!-- Shimmer effect overlay -->
-                <div
-                  class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                ></div>
 
-                <!-- Background glow effect -->
-                <div
-                  class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-cyan-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                ></div>
 
                 <!-- Icon with floating animation -->
                 <div class="relative z-10">
                   <div
-                    class="animate-float group-hover:animate-none group-hover:scale-110 w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center transition-transform duration-300 shadow-lg"
+                    class="w-16 h-16 chip flex items-center justify-center"
                   >
                     <i class="fas fa-certificate text-2xl text-white"></i>
                   </div>
@@ -677,7 +559,7 @@
 
                 <div class="relative z-10 flex-1">
                   <div
-                    class="font-bold text-xl text-white group-hover:text-blue-300 transition-colors duration-300"
+                    class="font-bold text-xl text-white"
                   >
                     BNSP
                   </div>
@@ -687,7 +569,7 @@
                   <a
                     href="assets/bnsp.jpeg"
                     target="_blank"
-                    class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-blue-700 hover:to-cyan-700 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-blue-500/25 link-sertifikat"
+                    class="btn-arcade inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold link-sertifikat"
                   >
                     View Certificate
                   </a>
@@ -706,60 +588,29 @@
 
             <div class="mt-8 flex justify-center items-center">
               <div
-                class="group relative glass p-8 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-purple-500 overflow-hidden max-w-md w-full"
+                class="group relative glass p-8 overflow-hidden max-w-md w-full"
               >
-                <!-- Shimmer effect overlay -->
-                <div
-                  class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                ></div>
 
-                <!-- Background glow effect -->
-                <div
-                  class="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                ></div>
 
                 <!-- Music Info Section -->
                 <div class="relative z-10 text-center mb-6">
                   <!-- Album Art Placeholder with Music Icon -->
                   <div class="relative mb-4">
                     <div
-                      class="animate-float group-hover:animate-none group-hover:scale-110 w-20 h-20 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 rounded-full flex items-center justify-center mx-auto transition-transform duration-300 shadow-lg animate-gradient"
+                      class="w-20 h-20 chip rounded-full flex items-center justify-center mx-auto"
                     >
                       <i class="fas fa-music text-2xl text-white"></i>
                     </div>
-                    <!-- Sound waves animation -->
-                    <div
-                      class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1"
-                    >
-                      <div
-                        class="w-1 h-3 bg-purple-400 rounded-full animate-pulse"
-                      ></div>
-                      <div
-                        class="w-1 h-4 bg-pink-400 rounded-full animate-pulse"
-                        style="animation-delay: 0.1s"
-                      ></div>
-                      <div
-                        class="w-1 h-2 bg-orange-400 rounded-full animate-pulse"
-                        style="animation-delay: 0.2s"
-                      ></div>
-                      <div
-                        class="w-1 h-5 bg-purple-400 rounded-full animate-pulse"
-                        style="animation-delay: 0.3s"
-                      ></div>
-                      <div
-                        class="w-1 h-3 bg-pink-400 rounded-full animate-pulse"
-                        style="animation-delay: 0.4s"
-                      ></div>
-                    </div>
+
                   </div>
 
                   <h3
-                    class="text-xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300"
+                    class="text-xl font-bold text-white"
                   >
                     This Is What Autumn Feels Like
                   </h3>
                   <p
-                    class="text-gray-400 mt-2 group-hover:text-gray-300 transition-colors duration-300"
+                    class="text-gray-400 mt-2"
                   >
                     JVKE
                   </p>
@@ -774,14 +625,11 @@
                         id="progressBar"
                         type="range"
                         value="0"
-                        class="w-full appearance-none bg-gray-600 rounded-lg h-2 outline-none cursor-pointer hover:bg-gray-500 transition-colors duration-300"
+                        class="w-full appearance-none h-2 outline-none cursor-pointer"
                         style="
                           background: linear-gradient(
                             to right,
-                            #8b5cf6 0%,
-                            #8b5cf6 0%,
-                            #4b5563 0%,
-                            #4b5563 100%
+                            #00f0ff 0%, #00f0ff 0%, #1d2941 0%, #1d2941 100%
                           );
                         "
                       />
@@ -804,13 +652,10 @@
                     <!-- Play/Pause Button (Centered) -->
                     <button
                       id="playPauseBtn"
-                      class="relative bg-gradient-to-r from-purple-600 to-pink-600 text-white p-3 rounded-full hover:from-purple-700 hover:to-pink-700 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 cursor-pointer group"
+                      class="btn-arcade p-3 cursor-pointer"
                     >
                       <i class="fas fa-play text-lg"></i>
-                      <!-- Ripple effect on click -->
-                      <div
-                        class="absolute inset-0 rounded-full bg-white opacity-0 group-active:opacity-20 transition-opacity duration-150"
-                      ></div>
+
                     </button>
 
                     <!-- Right spacer to balance the time display -->
@@ -850,28 +695,20 @@
             <a
               href="https://github.com/Jauhariel"
               target="_blank"
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-gray-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-gray-500 overflow-hidden"
+              class="group relative glass p-6 overflow-hidden"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-gray-600/10 to-slate-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon with floating animation -->
               <div class="relative z-10 flex items-center gap-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-16 h-16 bg-gradient-to-r from-gray-600 to-slate-600 rounded-xl flex items-center justify-center transition-transform duration-300 shadow-lg"
+                  class="chip w-16 h-16 flex items-center justify-center"
                 >
                   <i class="fab fa-github text-2xl text-white"></i>
                 </div>
                 <div class="flex-1">
                   <div
-                    class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors duration-300"
+                    class="text-xl font-bold text-white"
                   >
                     GitHub
                   </div>
@@ -884,32 +721,24 @@
             <a
               href="https://wa.me/jauhariel"
               target="_blank"
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-green-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-green-700 hover:border-green-500 overflow-hidden"
+              class="group relative glass p-6 overflow-hidden"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-green-600/10 to-emerald-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon with floating animation -->
               <div class="relative z-10 flex items-center gap-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center transition-transform duration-300 shadow-lg"
+                  class="w-16 h-16 chip flex items-center justify-center"
                 >
                   <i class="fab fa-whatsapp text-2xl text-white"></i>
                 </div>
                 <div class="flex-1">
                   <div
-                    class="text-xl font-bold text-white group-hover:text-green-200 transition-colors duration-300"
+                    class="text-xl font-bold text-white"
                   >
                     WhatsApp
                   </div>
-                  <div class="text-sm text-green-200 mt-1">@jauhariel</div>
+                  <div class="text-sm text-gray-400 mt-1">@jauhariel</div>
                 </div>
               </div>
             </a>
@@ -918,32 +747,24 @@
             <a
               href="https://instagram.com/jauhariel.id"
               target="_blank"
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-pink-700 hover:border-pink-500 overflow-hidden"
+              class="group relative glass p-6 overflow-hidden"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-pink-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon with floating animation -->
               <div class="relative z-10 flex items-center gap-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl flex items-center justify-center transition-transform duration-300 shadow-lg"
+                  class="w-16 h-16 chip flex items-center justify-center"
                 >
                   <i class="fab fa-instagram text-2xl text-white"></i>
                 </div>
                 <div class="flex-1">
                   <div
-                    class="text-xl font-bold text-white group-hover:text-pink-200 transition-colors duration-300"
+                    class="text-xl font-bold text-white"
                   >
                     Instagram
                   </div>
-                  <div class="text-sm text-pink-200 mt-1">@jauhariel.id</div>
+                  <div class="text-sm text-gray-400 mt-1">@jauhariel.id</div>
                 </div>
               </div>
             </a>
@@ -952,32 +773,24 @@
             <a
               href="mailto:jauhariel@sang.ceo"
               target="_blank"
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-red-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-red-700 hover:border-red-500 overflow-hidden"
+              class="group relative glass p-6 overflow-hidden"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-red-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon with floating animation -->
               <div class="relative z-10 flex items-center gap-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-16 h-16 bg-gradient-to-r from-red-500 to-pink-500 rounded-xl flex items-center justify-center transition-transform duration-300 shadow-lg"
+                  class="w-16 h-16 chip flex items-center justify-center"
                 >
                   <i class="fas fa-envelope text-2xl text-white"></i>
                 </div>
                 <div class="flex-1">
                   <div
-                    class="text-xl font-bold text-white group-hover:text-red-200 transition-colors duration-300"
+                    class="text-xl font-bold text-white"
                   >
                     Email
                   </div>
-                  <div class="text-sm text-red-200 mt-1">jauhariel@sang.ceo</div>
+                  <div class="text-sm text-gray-400 mt-1">jauhariel@sang.ceo</div>
                 </div>
               </div>
             </a>
@@ -996,27 +809,19 @@
           <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Card Project 8 -->
             <div
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-red-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-red-500 overflow-hidden flex flex-col h-full"
+              class="group relative glass p-6 overflow-hidden flex flex-col h-full"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-red-600/10 to-orange-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon -->
               <div class="relative z-10 mb-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300"
+                  class="w-12 h-12 chip flex items-center justify-center mb-3"
                 >
                   <i class="fas fa-hand-holding-heart text-white text-xl"></i>
                 </div>
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-red-300 transition-colors duration-300"
+                  class="text-xl font-bold text-white"
                 >
                   Kastipin
                 </h3>
@@ -1032,7 +837,7 @@
               <a
                 href="https://sup.jauhariel.is-cool.dev/"
                 target="_blank"
-                class="relative z-10 inline-flex items-center justify-center gap-2 mt-6 bg-gradient-to-r from-red-600 to-orange-600 text-white px-4 py-2 rounded-lg hover:from-red-700 hover:to-orange-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-red-500/25 link-projects"
+                class="btn-arcade relative z-10 mt-6 px-4 py-2 font-medium link-projects"
                 >View Details
               </a>
             </div>
@@ -1040,27 +845,19 @@
 
             <!-- Card Project 7 -->
             <div
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-sky-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-sky-500 overflow-hidden flex flex-col h-full"
+              class="group relative glass p-6 overflow-hidden flex flex-col h-full"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-sky-600/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon -->
               <div class="relative z-10 mb-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-12 h-12 bg-gradient-to-r from-sky-500 to-blue-500 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300"
+                  class="w-12 h-12 chip flex items-center justify-center mb-3"
                 >
                   <i class="fas fa-gift text-white text-xl"></i>
                 </div>
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-sky-300 transition-colors duration-300"
+                  class="text-xl font-bold text-white"
                 >
                   ZeroCostGaming
                 </h3>
@@ -1077,34 +874,26 @@
               <a
                 href="https://zerocostgaming.web.id/"
                 target="_blank"
-                class="relative z-10 inline-flex items-center justify-center gap-2 mt-6 bg-gradient-to-r from-sky-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-sky-700 hover:to-blue-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-sky-500/25 link-projects"
+                class="btn-arcade relative z-10 mt-6 px-4 py-2 font-medium link-projects"
                 >View Details
               </a>
             </div>
 
             <!-- Card Project 6 -->
             <div
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-amber-500 overflow-hidden flex flex-col h-full"
+              class="group relative glass p-6 overflow-hidden flex flex-col h-full"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-amber-600/10 to-orange-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon -->
               <div class="relative z-10 mb-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300"
+                  class="w-12 h-12 chip flex items-center justify-center mb-3"
                 >
                   <i class="fas fa-cube text-white text-xl"></i>
                 </div>
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-amber-300 transition-colors duration-300"
+                  class="text-xl font-bold text-white"
                 >
                   modelnyaw
                 </h3>
@@ -1120,34 +909,26 @@
               <a
                 href="https://modelnyaw.xyz/"
                 target="_blank"
-                class="relative z-10 inline-flex items-center justify-center gap-2 mt-6 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-4 py-2 rounded-lg hover:from-amber-700 hover:to-orange-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-amber-500/25 link-projects"
+                class="btn-arcade relative z-10 mt-6 px-4 py-2 font-medium link-projects"
                 >View Details
               </a>
             </div>
 
             <!-- Card Project 1 -->
             <div
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-purple-500 overflow-hidden flex flex-col h-full"
+              class="group relative glass p-6 overflow-hidden flex flex-col h-full"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon -->
               <div class="relative z-10 mb-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300"
+                  class="w-12 h-12 chip flex items-center justify-center mb-3"
                 >
                   <i class="fas fa-comments text-white text-xl"></i>
                 </div>
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300"
+                  class="text-xl font-bold text-white"
                 >
                   RainaChat
                 </h3>
@@ -1163,34 +944,26 @@
               <a
                 href="https://rainachat.top/"
                 target="_blank"
-                class="relative z-10 inline-flex items-center justify-center gap-2 mt-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-purple-500/25 link-projects"
+                class="btn-arcade relative z-10 mt-6 px-4 py-2 font-medium link-projects"
                 >View Details
               </a>
             </div>
 
             <!-- Card Project 5 -->
             <div
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-indigo-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-indigo-500 overflow-hidden flex flex-col h-full"
+              class="group relative glass p-6 overflow-hidden flex flex-col h-full"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon -->
               <div class="relative z-10 mb-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300"
+                  class="w-12 h-12 chip flex items-center justify-center mb-3"
                 >
                   <i class="fas fa-robot text-white text-xl"></i>
                 </div>
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors duration-300"
+                  class="text-xl font-bold text-white"
                 >
                   Kamino Bot
                 </h3>
@@ -1207,34 +980,26 @@
               <a
                 href="https://jauhariel.github.io/web-kaminobot/"
                 target="_blank"
-                class="relative z-10 inline-flex items-center justify-center gap-2 mt-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-indigo-500/25 link-projects"
+                class="btn-arcade relative z-10 mt-6 px-4 py-2 font-medium link-projects"
                 >View Details
               </a>
             </div>
 
             <!-- Card Project 2 -->
             <div
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-pink-500 overflow-hidden flex flex-col h-full"
+              class="group relative glass p-6 overflow-hidden flex flex-col h-full"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-pink-600/10 to-rose-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon -->
               <div class="relative z-10 mb-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300"
+                  class="w-12 h-12 chip flex items-center justify-center mb-3"
                 >
                   <i class="fas fa-gamepad text-white text-xl"></i>
                 </div>
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-pink-300 transition-colors duration-300"
+                  class="text-xl font-bold text-white"
                 >
                   Vtuber Kuru
                 </h3>
@@ -1251,34 +1016,26 @@
               <a
                 href="https://vtuberkuru.jauhariel.is-cool.dev/"
                 target="_blank"
-                class="relative z-10 inline-flex items-center justify-center gap-2 mt-6 bg-gradient-to-r from-pink-600 to-rose-600 text-white px-4 py-2 rounded-lg hover:from-pink-700 hover:to-rose-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-pink-500/25 link-projects"
+                class="btn-arcade relative z-10 mt-6 px-4 py-2 font-medium link-projects"
                 >View Details
               </a>
             </div>
 
             <!-- Card Project 3 -->
             <div
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-green-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-green-500 overflow-hidden flex flex-col h-full"
+              class="group relative glass p-6 overflow-hidden flex flex-col h-full"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-green-600/10 to-emerald-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon -->
               <div class="relative z-10 mb-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300"
+                  class="w-12 h-12 chip flex items-center justify-center mb-3"
                 >
                   <i class="fab fa-whatsapp text-white text-xl"></i>
                 </div>
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-green-300 transition-colors duration-300"
+                  class="text-xl font-bold text-white"
                 >
                   AutoReadStoryWhatsapp
                 </h3>
@@ -1295,34 +1052,26 @@
               <a
                 href="https://github.com/jauhariel/AutoReadStoryWhatsapp"
                 target="_blank"
-                class="relative z-10 inline-flex items-center justify-center gap-2 mt-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-green-500/25 link-projects"
+                class="btn-arcade relative z-10 mt-6 px-4 py-2 font-medium link-projects"
                 >View Details
               </a>
             </div>
 
             <!-- Card Project 4 -->
             <div
-              class="group relative glass p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-cyan-500/25 transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border border-gray-700 hover:border-cyan-500 overflow-hidden flex flex-col h-full"
+              class="group relative glass p-6 overflow-hidden flex flex-col h-full"
             >
-              <!-- Shimmer effect overlay -->
-              <div
-                class="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
 
-              <!-- Background glow effect -->
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-cyan-600/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              ></div>
 
               <!-- Icon -->
               <div class="relative z-10 mb-4">
                 <div
-                  class="animate-float group-hover:animate-none group-hover:scale-110 w-12 h-12 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300"
+                  class="w-12 h-12 chip flex items-center justify-center mb-3"
                 >
                   <i class="fas fa-microchip text-white text-xl"></i>
                 </div>
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors duration-300"
+                  class="text-xl font-bold text-white"
                 >
                   Lemari IOT
                 </h3>
@@ -1338,7 +1087,7 @@
               <a
                 href="https://github.com/jauhariel/lemari-iot"
                 target="_blank"
-                class="relative z-10 inline-flex items-center justify-center gap-2 mt-6 bg-gradient-to-r from-cyan-600 to-teal-600 text-white px-4 py-2 rounded-lg hover:from-cyan-700 hover:to-teal-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-cyan-500/25 link-projects"
+                class="btn-arcade relative z-10 mt-6 px-4 py-2 font-medium link-projects"
                 >View Details
               </a>
             </div>
@@ -1351,12 +1100,12 @@
         class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-lg md:max-w-3xl lg:max-w-2xl"
       >
         <nav
-          class="mx-4 glass rounded-2xl shadow-lg"
+          class="mx-4 glass"
         >
           <div class="flex justify-around items-center py-3">
             <!-- Home Button -->
             <div
-              class="flex flex-col items-center cursor-pointer hover:text-green-400 transition-colors btn-home nav-active px-2"
+              class="flex flex-col items-center cursor-pointer navbtn btn-home nav-active px-2"
             >
               <i class="fas fa-home text-lg mb-1"></i>
               <span class="text-xs home-text">Home</span>
@@ -1364,7 +1113,7 @@
 
             <!-- About Me Button -->
             <div
-              class="flex flex-col items-center cursor-pointer hover:text-purple-400 transition-colors btn1 px-2"
+              class="flex flex-col items-center cursor-pointer navbtn btn1 px-2"
             >
               <i class="fas fa-user text-lg mb-1"></i>
               <span class="text-xs about-text">About</span>
@@ -1372,7 +1121,7 @@
 
             <!-- Projects Button -->
             <div
-              class="flex flex-col items-center cursor-pointer hover:text-pink-400 transition-colors btn2 px-2"
+              class="flex flex-col items-center cursor-pointer navbtn btn2 px-2"
             >
               <i class="fas fa-code text-lg mb-1"></i>
               <span class="text-xs projects-text">Projects</span>
@@ -1380,7 +1129,7 @@
 
             <!-- Language Button -->
             <div
-              class="flex flex-col items-center cursor-pointer hover:text-blue-400 transition-colors relative px-2"
+              class="flex flex-col items-center cursor-pointer navbtn relative px-2"
               id="language-menu"
             >
               <i class="fas fa-language text-lg mb-1"></i>
@@ -1389,25 +1138,25 @@
               <!-- Language Dropdown -->
               <ul
                 id="language-dropdown"
-                class="absolute hidden glass text-white rounded-lg bottom-14 w-32 shadow-lg border border-purple-800 -right-4 md:right-auto md:left-1/2 md:-translate-x-1/2"
+                class="absolute hidden glass text-white bottom-14 w-32 -right-4 md:right-auto md:left-1/2 md:-translate-x-1/2"
               >
                 <li
-                  class="p-2 hover:bg-purple-700 cursor-pointer text-center indonesia"
+                  class="p-2 cursor-pointer text-center lang-opt indonesia"
                 >
                   Indonesian
                 </li>
                 <li
-                  class="p-2 hover:bg-purple-700 cursor-pointer text-center inggris"
+                  class="p-2 cursor-pointer text-center lang-opt inggris"
                 >
                   English
                 </li>
                 <li
-                  class="p-2 hover:bg-purple-700 cursor-pointer text-center jepang"
+                  class="p-2 cursor-pointer text-center lang-opt jepang"
                 >
                   Japanese
                 </li>
                 <li
-                  class="p-2 hover:bg-purple-700 cursor-pointer text-center chinese"
+                  class="p-2 cursor-pointer text-center lang-opt chinese"
                 >
                   Chinese
                 </li>
