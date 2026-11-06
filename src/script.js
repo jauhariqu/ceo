@@ -393,7 +393,7 @@ $(document).ready(function () {
     // Update progress bar background
     progressBar.css(
       "background",
-      `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${progress}%, #4b5563 ${progress}%, #4b5563 100%)`
+      `linear-gradient(to right, #00f0ff 0%, #00f0ff ${progress}%, #1d2941 ${progress}%, #1d2941 100%)`
     );
     currentTime.text(formatTime(audioPlayer.currentTime));
   });
@@ -408,7 +408,7 @@ $(document).ready(function () {
     const progress = this.value;
     $(this).css(
       "background",
-      `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${progress}%, #4b5563 ${progress}%, #4b5563 100%)`
+      `linear-gradient(to right, #00f0ff 0%, #00f0ff ${progress}%, #1d2941 ${progress}%, #1d2941 100%)`
     );
   });
 
